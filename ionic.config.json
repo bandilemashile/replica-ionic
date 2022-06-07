@@ -1,0 +1,7 @@
+{
+  "name": "replica",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
