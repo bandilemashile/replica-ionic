@@ -1,0 +1,71 @@
+<ion-header>
+<!-- create the burger menu in the ion-toolbar -->
+  <ion-toolbar color="success">
+    <ion-buttons slot="start">
+         <ion-menu-button>
+
+         </ion-menu-button>
+    </ion-buttons>
+    <ion-title>Reciclica</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<!-- list information about the partner in home page -->
+<ion-list color="success">
+  <ion-item color="success">
+    <ion-avatar slot="start">
+      <img src="https://png.pngtree.com/png-clipart/20200224/original/pngtree-cartoon-color-simple-male-avatar-png-image_5230557.jpg"/>
+    </ion-avatar>
+    <ion-label>
+      <h1>
+        Bandile Mashile
+      </h1>
+      <p>
+       Gathered : R1500
+      </p>
+    </ion-label>
+  </ion-item>
+</ion-list>
+
+<ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>
+        Last pick up
+      </ion-card-subtitle>
+    </ion-card-header>
+    
+    <ion-card-content>
+      <ion-item lines="none">
+       <ion-icon name="hourglass-outline" slot="start" color="warning"></ion-icon>
+       <ion-label>
+        On Hold
+        <p>2022/06/11</p>
+       </ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>
+          <p>Created at 2022/06/10</p>
+          <p>Notes: we have two bags of trash one with plastic and one with glass inside </p>
+        </ion-label>
+      </ion-item>
+      <ion-button color="success" fill="clear" size="full">See all..</ion-button>
+    </ion-card-content>
+</ion-card>
+
+<!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button color="success">
+    <ion-ico name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab> -->
+
+<ion-fab vertical="bottom" horizontal="end"  slot="fixed">
+    <ion-fab-button color="success">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+    <!-- <ion-fab-list side="end">
+      <ion-fab-button><ion-icon name="logo-vimeo"></ion-icon></ion-fab-button>
+    </ion-fab-list> -->
+  </ion-fab>
+</ion-content>
