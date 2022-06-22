@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar color="success">
+    <ion-buttons slot="start">
+      <ion-back-button text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>My Pickup calls</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+
+    <!-- on hold state card component-->
+    <app-pickup-card status="hold" updatedAt="2022/06/12 16:04:00" createdAt="2022/06/12" 
+       notes=" we have two bags of trash one with plastic and one with glass inside">
+    </app-pickup-card>
+
+
+    <!-- processing state pick up calls card -->
+    <app-pickup-card status="processing" updatedAt="2022/06/11 18:00:00" createdAt="2022/06/11" 
+       notes="we have two bags that are full">
+    </app-pickup-card>
+
+
+    <!-- finished state card -->
+    <app-pickup-card status="finished" updatedAt="2022/06/10 19:00:00" createdAt="2022/06/10"
+        value="$ 10,00" >
+    </app-pickup-card>
+
+
+</ion-content>
