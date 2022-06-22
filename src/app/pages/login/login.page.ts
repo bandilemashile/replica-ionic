@@ -1,4 +1,4 @@
-import { recoverPasswordFail } from './../../../store/login/login.actions';
+import { login, recoverPasswordFail, loginSuccess } from './../../../store/login/login.actions';
 import { ToastController } from '@ionic/angular';
 import { LoginState } from './../../../store/login/LoginState';
 import { FormGroup } from '@angular/forms';
@@ -34,6 +34,9 @@ export class LoginPage implements OnInit,OnDestroy {
       this.onIsRecoveredPassword(LoginState);
       this.onIsRecoveringPassword(LoginState);
       this.isOnRecoverPasswordFail(LoginState);
+      this.onIsLoggingIn(LoginState);
+      this.onIsLoggedIn(LoginState);
+     this.toggleLoading(LoginState);
      
     })
   }
@@ -44,6 +47,31 @@ export class LoginPage implements OnInit,OnDestroy {
       this.loginStateSubscription.unsubscribe();
     }
     
+  }
+
+  private onIsLoggedIn(loginState:LoginState){
+    if(loginState.isLoggedIn)
+    {
+      this.router.navigate(['home']);
+    }
+  }
+
+  private onIsLoggingIn(loginState:LoginState){
+    if(loginState.isLoggingIn){
+      const email = this.form.get('email').value;
+      const password = this.form.get('password').value;
+      this.authService.login(email,password).subscribe(user =>{
+        this.store.dispatch(loginSuccess({user}));
+      })
+    }
+  }
+
+  private toggleLoading(loginState:LoginState){
+    if(loginState.isLoggingIn || loginState.isRecoveringPassword){
+      this.store.dispatch(show());
+    }else{
+      this.store.dispatch(hide());
+    }
   }
 
   //hide loading component 
@@ -69,7 +97,7 @@ export class LoginPage implements OnInit,OnDestroy {
   private onIsRecoveringPassword(loginState:LoginState)
   {
     if(loginState.isRecoveringPassword){
-      this.store.dispatch(show());
+      
 
       this.authService.recoverEmailPassword(this.form.get('email').value).subscribe(() => {
           this.store.dispatch(recoverPasswordSuccess());
@@ -86,7 +114,7 @@ export class LoginPage implements OnInit,OnDestroy {
   private async onIsRecoveredPassword(loginState:LoginState)
   {
     if(loginState.isRecoveredPassword){
-      this.store.dispatch(hide());
+      
 
       const toaster = await this.toastController.create({
           position:"bottom",
@@ -111,7 +139,9 @@ export class LoginPage implements OnInit,OnDestroy {
 
 
   login(){
-     this.router.navigate(['home']);
+    //  this.router.navigate(['home']);
+
+    this.store.dispatch(login());
   }
 
   register(){

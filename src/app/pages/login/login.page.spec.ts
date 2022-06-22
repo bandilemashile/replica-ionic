@@ -12,6 +12,9 @@ import { LoginPage } from './login.page';
 import { ReactiveFormsModule } from '@angular/forms';
 import { loginReducer } from 'src/store/login/login.reducers';
 import { recoverPassword, recoverPasswordFail, recoverPasswordSuccess } from 'src/store/login/login.actions';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { of } from 'rxjs';
+import { User } from 'src/app/model/user/User';
 
 describe('LoginPage', () => {
   let component: LoginPage;
@@ -20,6 +23,7 @@ describe('LoginPage', () => {
   let page;
   let store:Store<AppState>;
   let toastController:ToastController;
+  let authService:AuthService;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -36,6 +40,7 @@ describe('LoginPage', () => {
     fixture = TestBed.createComponent(LoginPage);
     router = TestBed.get(Router);
     store = TestBed.get(Store);
+    authService = TestBed.get(AuthService);
     toastController = TestBed.get(ToastController);
 
     component = fixture.componentInstance;
@@ -55,14 +60,7 @@ expect(component.form).not.toBeUndefined();
   // test to see whether the login button navigates to 
   // home page
 
-  it('should go to home page', ()=> {
-
-    spyOn(router, 'navigate');
-
-    component.login();
-
-    expect(router.navigate).toHaveBeenCalledWith(['home']);
-  });
+  
 
 
 //test register button
@@ -127,6 +125,38 @@ expect(component.form).not.toBeUndefined();
 
     expect(toastController.create).toHaveBeenCalledTimes(1);
 
+  })
+
+  it('should show loading component and start login when logging in', () =>{
+    fixture.detectChanges();
+    component.form.get('email').setValue('valid@email.com');
+    component.form.get('password').setValue('anyPassword');
+    page.querySelector('#loginButton').click();
+    store.select('loading').subscribe(LoadingState => {
+      expect(LoadingState.show).toBeTruthy();
+    })
+
+    store.select('login').subscribe(LoginState =>{
+      expect(LoginState.isLoggingIn).toBeTruthy();
+    })
+
+  })
+
+  it('should hide loading component and send user to home page', () =>{
+    spyOn(router,'navigate');
+    spyOn(authService,'login').and.returnValue(of(new User()));
+
+    fixture.detectChanges();
+    component.form.get('email').setValue('valid@email.com');
+    component.form.get('password').setValue('anyPassword');
+    page.querySelector('#loginButton').click();
+    store.select('loading').subscribe(LoadingState => {
+      expect(LoadingState.show).toBeFalsy();
+    })
+    store.select('login').subscribe(LoginState =>{
+      expect(LoginState.isLoggedIn).toBeTruthy();
+    })
+    expect(router.navigate).toHaveBeenCalledWith(['home']);
   })
 
 });
