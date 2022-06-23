@@ -13,7 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { loginReducer } from 'src/store/login/login.reducers';
 import { recoverPassword, recoverPasswordFail, recoverPasswordSuccess } from 'src/store/login/login.actions';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { User } from 'src/app/model/user/User';
 
 describe('LoginPage', () => {
@@ -113,7 +113,7 @@ expect(component.form).not.toBeUndefined();
 
   it('should hide loading and show error message on recover password', () =>{
 
-    spyOn(toastController,'create');
+    spyOn(toastController,'create').and.returnValue(<any> Promise.resolve({present : ()=>{}}));
 
     fixture.detectChanges();
     store.dispatch(recoverPassword());
@@ -157,6 +157,22 @@ expect(component.form).not.toBeUndefined();
       expect(LoginState.isLoggedIn).toBeTruthy();
     })
     expect(router.navigate).toHaveBeenCalledWith(['home']);
+  })
+
+  it('should hide looading page and show error message when error login', () =>{
+   spyOn(authService,'login').and.returnValue(throwError({message:'error'}));
+   spyOn(toastController,'create').and.returnValue(<any> Promise.resolve({present : ()=>{}}));
+   
+    fixture.detectChanges();
+    component.form.get('email').setValue('error@email.com');
+    component.form.get('password').setValue('anyPassword');
+    page.querySelector('#loginButton').click();
+
+    store.select('loading').subscribe(LoadingState => {
+      expect(LoadingState.show).toBeFalsy();
+    })
+
+    expect(toastController.create).toHaveBeenCalledTimes(1);
   })
 
 });

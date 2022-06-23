@@ -15,7 +15,7 @@ describe('PickupCallCardPage', () => {
 
     fixture = TestBed.createComponent(PickupCallCardPage);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    // fixture.detectChanges();
   }));
 
   // it('should create', () => {

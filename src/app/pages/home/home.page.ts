@@ -12,11 +12,12 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
   }
-
+//see all pick up calls
   goToPickUpCalls(){
      this.router.navigate(['pickup-calls']);
   }
 
+//create a new pick up call
   newPickUpCall(){
     this.router.navigate(['pickup-call']);
   }

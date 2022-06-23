@@ -1,4 +1,4 @@
-import { login, recoverPasswordFail, loginSuccess } from './../../../store/login/login.actions';
+import { login, recoverPasswordFail, loginSuccess, LoginFail } from './../../../store/login/login.actions';
 import { ToastController } from '@ionic/angular';
 import { LoginState } from './../../../store/login/LoginState';
 import { FormGroup } from '@angular/forms';
@@ -62,6 +62,8 @@ export class LoginPage implements OnInit,OnDestroy {
       const password = this.form.get('password').value;
       this.authService.login(email,password).subscribe(user =>{
         this.store.dispatch(loginSuccess({user}));
+      }, error =>{
+        this.store.dispatch(LoginFail({error}));
       })
     }
   }
