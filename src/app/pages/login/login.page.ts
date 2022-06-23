@@ -1,4 +1,4 @@
-import { login, recoverPasswordFail, loginSuccess, LoginFail } from './../../../store/login/login.actions';
+import { login } from './../../../store/login/login.actions';
 import { ToastController } from '@ionic/angular';
 import { LoginState } from './../../../store/login/LoginState';
 import { FormGroup } from '@angular/forms';
@@ -9,8 +9,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/store/AppState';
 import { hide, show } from 'src/store/loading/loading.actions';
-import { recoverPassword, recoverPasswordSuccess } from 'src/store/login/login.actions';
-import { AuthService } from 'src/app/services/auth/auth.service';
+import { recoverPassword } from 'src/store/login/login.actions';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -24,19 +23,20 @@ export class LoginPage implements OnInit,OnDestroy {
   loginStateSubscription:Subscription;
 
   constructor(private router: Router,private formbuilder:FormBuilder,private store: Store<AppState>,
-    private toastController:ToastController,private authService:AuthService) { }
+    private toastController:ToastController) { }
 
   ngOnInit() {
 
     this.form = new LoginPageForm(this.formbuilder).createForm();
 
-    this.loginStateSubscription = this.store.select('login').subscribe(LoginState => {
-      this.onIsRecoveredPassword(LoginState);
-      this.onIsRecoveringPassword(LoginState);
-      this.isOnRecoverPasswordFail(LoginState);
-      this.onIsLoggingIn(LoginState);
-      this.onIsLoggedIn(LoginState);
-     this.toggleLoading(LoginState);
+    this.loginStateSubscription = this.store.select('login').subscribe(loginState => {
+      this.onIsRecoveredPassword(loginState);
+  
+      this.isOnRecoverPasswordFail(loginState);
+      
+      this.onIsLoggedIn(loginState);
+
+      this.toggleLoading(loginState);
      
     })
   }
@@ -56,17 +56,7 @@ export class LoginPage implements OnInit,OnDestroy {
     }
   }
 
-  private onIsLoggingIn(loginState:LoginState){
-    if(loginState.isLoggingIn){
-      const email = this.form.get('email').value;
-      const password = this.form.get('password').value;
-      this.authService.login(email,password).subscribe(user =>{
-        this.store.dispatch(loginSuccess({user}));
-      }, error =>{
-        this.store.dispatch(LoginFail({error}));
-      })
-    }
-  }
+
 
   private toggleLoading(loginState:LoginState){
     if(loginState.isLoggingIn || loginState.isRecoveringPassword){
@@ -92,24 +82,6 @@ export class LoginPage implements OnInit,OnDestroy {
   toaster.present();
 
   }
-
-
-//show loading component
-//recover password true
-  private onIsRecoveringPassword(loginState:LoginState)
-  {
-    if(loginState.isRecoveringPassword){
-      
-
-      this.authService.recoverEmailPassword(this.form.get('email').value).subscribe(() => {
-          this.store.dispatch(recoverPasswordSuccess());
-      },error => 
-      {
-        this.store.dispatch(recoverPasswordFail({error}))
-      });
-    }
-  }
-
 
 //hide loading component
 //show success message on email password recovery

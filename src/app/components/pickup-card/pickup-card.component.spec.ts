@@ -15,10 +15,8 @@ describe('PickupCardComponent', () => {
 
     fixture = TestBed.createComponent(PickupCardComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    
   }));
 
-  // it('should create', () => {
-  //   expect(component).toBeTruthy();
-  // });
+
 });
