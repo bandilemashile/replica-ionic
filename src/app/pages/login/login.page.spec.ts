@@ -97,7 +97,7 @@ expect(component.form).not.toBeUndefined();
     spyOn(toastController,'create');
 
     fixture.detectChanges();
-    store.dispatch(recoverPassword());
+    store.dispatch(recoverPassword({email :"any@email.com"}));
     store.dispatch(recoverPasswordSuccess());
     store.select('loading').subscribe(LoadingState => {
       expect(LoadingState.show).toBeFalsy();
@@ -111,7 +111,7 @@ expect(component.form).not.toBeUndefined();
     spyOn(toastController,'create').and.returnValue(<any> Promise.resolve({present : ()=>{}}));
 
     fixture.detectChanges();
-    store.dispatch(recoverPassword());
+    store.dispatch(recoverPassword({email :"any@email.com"}));
     store.dispatch(recoverPasswordFail({error:"message"}));
     
     store.select('loading').subscribe(LoadingState => {
@@ -150,7 +150,7 @@ expect(component.form).not.toBeUndefined();
  
 
     fixture.detectChanges();
-    store.dispatch(login());
+    store.dispatch(login({email:"valid@email.com",password :"anyPassword"}));
     store.dispatch(loginSuccess({user : new User()}));
     store.select('loading').subscribe(LoadingState => {
       expect(LoadingState.show).toBeFalsy();
@@ -169,7 +169,7 @@ expect(component.form).not.toBeUndefined();
    spyOn(toastController,'create').and.returnValue(<any> Promise.resolve({present : ()=>{}}));
    
     fixture.detectChanges();
-    store.dispatch(login());
+    store.dispatch(login({email:"valid@email.com",password :"anyPassword"}));
     store.dispatch(LoginFail({error : {message : 'error'}}));
 
     store.select('loading').subscribe(LoadingState => {

@@ -103,7 +103,7 @@ export class LoginPage implements OnInit,OnDestroy {
 //initiate forgot password on button click
   forgotPassword(){
 
-    this.store.dispatch(recoverPassword());
+    this.store.dispatch(recoverPassword({email : this.form.get('email').value}));
     // this.store.dispatch(show())
 
     // setTimeout(() =>{
@@ -115,7 +115,7 @@ export class LoginPage implements OnInit,OnDestroy {
   login(){
     //  this.router.navigate(['home']);
 
-    this.store.dispatch(login());
+    this.store.dispatch(login({email : this.form.get('email').value,password : this.form.get('password').value}));
   }
 
   register(){
