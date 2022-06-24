@@ -27,13 +27,13 @@ describe('RegisterPage', () => {
   }));
 
   
-it('should go from regsiter to home page',()=>
-{
-  spyOn(router,'navigate');
+// it('should go from regsiter to home page',()=>
+// {
+//   spyOn(router,'navigate');
 
-  component.register();
+//   component.register();
 
-  expect(router.navigate).toHaveBeenCalledOnceWith(['home']);
-})
+//   expect(router.navigate).toHaveBeenCalledOnceWith(['home']);
+// })
 
 });
