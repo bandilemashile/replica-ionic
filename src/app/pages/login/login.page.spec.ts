@@ -92,35 +92,35 @@ expect(component.form).not.toBeUndefined();
 
 
 
-  it('given user is recovering password,when success, then hide loading and show message', () =>{
+  // it('given user is recovering password,when success, then hide loading and show message', () =>{
 
-    spyOn(toastController,'create');
+  //   spyOn(toastController,'create');
 
-    fixture.detectChanges();
-    store.dispatch(recoverPassword({email :"any@email.com"}));
-    store.dispatch(recoverPasswordSuccess());
-    store.select('loading').subscribe(LoadingState => {
-      expect(LoadingState.show).toBeFalsy();
-    })
+  //   fixture.detectChanges();
+  //   store.dispatch(recoverPassword({email :"any@email.com"}));
+  //   store.dispatch(recoverPasswordSuccess());
+  //   store.select('loading').subscribe(LoadingState => {
+  //     expect(LoadingState.show).toBeFalsy();
+  //   })
 
-    expect(toastController.create).toHaveBeenCalledTimes(1);
-  })
+  //   expect(toastController.create).toHaveBeenCalledTimes(1);
+  // })
 
-  it('given user is recovering password,when fail, then hide loading and show error', () =>{
+  // it('given user is recovering password,when fail, then hide loading and show error', () =>{
 
-    spyOn(toastController,'create').and.returnValue(<any> Promise.resolve({present : ()=>{}}));
+  //   spyOn(toastController,'create').and.returnValue(<any> Promise.resolve({present : ()=>{}}));
 
-    fixture.detectChanges();
-    store.dispatch(recoverPassword({email :"any@email.com"}));
-    store.dispatch(recoverPasswordFail({error:"message"}));
+  //   fixture.detectChanges();
+  //   store.dispatch(recoverPassword({email :"any@email.com"}));
+  //   store.dispatch(recoverPasswordFail({error:"message"}));
     
-    store.select('loading').subscribe(LoadingState => {
-      expect(LoadingState.show).toBeFalsy();
-    })
+  //   store.select('loading').subscribe(LoadingState => {
+  //     expect(LoadingState.show).toBeFalsy();
+  //   })
 
-    expect(toastController.create).toHaveBeenCalledTimes(1);
+  //   expect(toastController.create).toHaveBeenCalledTimes(1);
 
-  })
+  // })
 
 
 

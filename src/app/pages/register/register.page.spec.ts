@@ -3,6 +3,8 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { RegisterPage } from './register.page';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RegisterPageModule } from './register.module';
 
 describe('RegisterPage', () => {
   let component: RegisterPage;
@@ -13,7 +15,9 @@ describe('RegisterPage', () => {
     TestBed.configureTestingModule({
       declarations: [ RegisterPage ],
       imports: [IonicModule.forRoot(),
-                 AppRoutingModule]
+                 AppRoutingModule,
+                ReactiveFormsModule,
+               RegisterPageModule]
     }).compileComponents();
 
     fixture = TestBed.createComponent(RegisterPage);
