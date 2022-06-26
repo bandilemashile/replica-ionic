@@ -14,6 +14,8 @@ export class RegisterEffects{
 
     }
 
+    //this effect uses the user information that is entered in the Registerform
+    //uses the auth Service to check where the registerSuccess or registerFail actions should be in effect
     register$ = createEffect(() => this.actions$.pipe(
 
         ofType(register),

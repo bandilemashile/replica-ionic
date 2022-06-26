@@ -3,6 +3,9 @@ import { AppInitialState } from "../AppInitialState";
 import { register, registerFail, registerSuccess } from "./register.actions";
 import { RegisterState } from "./RegisterState";
 
+
+//the register actions and their different parameters for their different states used by reducer
+
 const initialState = AppInitialState.register;
 const reducer = createReducer(initialState,
       on(register, state => {

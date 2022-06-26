@@ -10,6 +10,7 @@ export class LoaderPage implements OnInit {
 
   constructor(private router:Router) { }
 
+  //loading component set to 2 seconds the redirects to login page
   ngOnInit() {
     setTimeout(()=>{
 

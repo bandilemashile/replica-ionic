@@ -57,7 +57,7 @@ export class LoginPage implements OnInit,OnDestroy {
   }
 
 
-
+//change the state between isLoggingIn and isLogggedIn
   private toggleLoading(loginState:LoginState){
     if(loginState.isLoggingIn || loginState.isRecoveringPassword){
       this.store.dispatch(show());
@@ -114,12 +114,15 @@ export class LoginPage implements OnInit,OnDestroy {
   }
 
 
+
+//this uses the login action that accepts two parameters to link the form values to the login() action 
   login(){
     //  this.router.navigate(['home']);
 
     this.store.dispatch(login({email : this.form.get('email').value,password : this.form.get('password').value}));
   }
 
+//register button navigates to register page
   register(){
     this.router.navigate(['register']);
  }

@@ -38,12 +38,13 @@ notes=" we have two bags of trash one with plastic and one with glass inside" >
     </ion-card-subtitle>
   </ion-card-header>
 
+  <!-- button to go to pickup-calls pages -->
   <ion-button footer color="success" (click)="goToPickUpCalls()" fill="clear" size="full">See all..</ion-button>
 </app-pickup-card>
 
 
 
-<!-- add item button -->
+<!-- add item button  and goes to pickup-call page-->
 <ion-fab vertical="bottom" horizontal="end"  slot="fixed">
     <ion-fab-button color="success" (click)="newPickUpCall()">
       <ion-icon name="add"></ion-icon>

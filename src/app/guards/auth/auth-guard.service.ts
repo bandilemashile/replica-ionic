@@ -12,6 +12,9 @@ export class AuthGuard implements CanLoad {
 
   constructor(private store:Store<AppState>,private router:Router) { }
 
+
+  //this prevents a user from navigating through the pages using the url when not logged in 
+  //NavigateByUrl method is toggled between true and false
   canLoad() :Observable<boolean> {
     return this.store.select('login').pipe(
       take(1),
